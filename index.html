@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lumen — Listen to anything</title>
+<meta name="description" content="Turn PDFs, books, websites, documents, and scans into natural speech. Private, offline-first, and beautiful to read.">
+<meta name="theme-color" content="#f7f5fd">
+<meta name="color-scheme" content="light dark">
+
+<!-- iOS standalone -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lumen">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/components.css">
+
+<!-- The parsers are fetched on demand; warming the connection saves ~200ms on the
+     first PDF or scan without downloading anything up front. -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+<style>
+  /* Boot splash. Removed by main.js once the shell mounts; if scripts fail entirely,
+     the <noscript> message below is what remains. */
+  #boot {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: center;
+    gap: 18px;
+    background: var(--bg);
+    animation: bootout .3s ease forwards;
+    animation-delay: .35s;
+    pointer-events: none;
+  }
+  @keyframes bootout { to { opacity: 0; visibility: hidden; } }
+  #boot svg { animation: bootpulse 1.4s ease-in-out infinite; }
+  @keyframes bootpulse { 50% { transform: scale(1.06); opacity: .8; } }
+  @media (prefers-reduced-motion: reduce) {
+    #boot svg { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="boot" aria-hidden="true">
+  <svg viewBox="0 0 48 48" width="64" height="64">
+    <defs>
+      <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#a78bfa"/>
+        <stop offset="1" stop-color="#6d28d9"/>
+      </linearGradient>
+    </defs>
+    <rect x="2" y="2" width="44" height="44" rx="14" fill="url(#bg-grad)"/>
+    <path d="M24 10a14 14 0 1 1 0 28" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+    <path d="M17 17h14M17 24h14M17 31h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<noscript>
+  <div style="max-width:44ch;margin:15vh auto;padding:0 24px;font:16px/1.6 system-ui,sans-serif;text-align:center">
+    <h1 style="font-size:24px">Lumen needs JavaScript</h1>
+    <p style="color:#666">Lumen reads your documents aloud entirely inside your browser — the text extraction, the speech, and the storage all run as scripts on this page. Please enable JavaScript to use it.</p>
+  </div>
+</noscript>
+
+<script type="module" src="src/main.js"></script>
+<script type="module">
+  // Drop the splash as soon as the shell has painted.
+  addEventListener('DOMContentLoaded', () => {
+    requestAnimationFrame(() => setTimeout(() => document.getElementById('boot')?.remove(), 700));
+  });
+</script>
+</body>
+</html>
