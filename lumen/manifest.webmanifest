@@ -1,0 +1,72 @@
+{
+  "name": "Lumen — Listen to anything",
+  "short_name": "Lumen",
+  "description": "Turn PDFs, books, websites, documents, and scans into natural speech. Private, offline-first, and beautiful to read.",
+  "id": "/lumen/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f7f5fd",
+  "theme_color": "#f7f5fd",
+  "categories": ["productivity", "education", "books", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Read a website",
+      "short_name": "Website",
+      "description": "Paste a link and listen to the article",
+      "url": "./index.html#/import?tab=url",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Scan a page",
+      "short_name": "Scan",
+      "description": "Photograph a page and listen to it",
+      "url": "./index.html#/import?tab=scan",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Search",
+      "short_name": "Search",
+      "description": "Search your library",
+      "url": "./index.html#/search",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "share_target": {
+    "action": "./index.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "file_handlers": [
+    {
+      "action": "./index.html",
+      "accept": {
+        "application/pdf": [".pdf"],
+        "application/epub+zip": [".epub"],
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+        "text/plain": [".txt"],
+        "text/markdown": [".md"],
+        "text/html": [".html", ".htm"],
+        "application/rtf": [".rtf"]
+      }
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "prefer_related_applications": false
+}

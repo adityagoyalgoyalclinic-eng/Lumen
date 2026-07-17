@@ -1,0 +1,194 @@
+/*
+ * Lumen design tokens.
+ *
+ * Three themes ship as attribute selectors on :root — light, dark, amoled — plus
+ * five reading surfaces that only apply inside the reader canvas. Everything else
+ * in the app derives from these variables; no component hardcodes a color.
+ *
+ * The accent hue is a single number (--h). Dynamic color rotates that one value
+ * and every tint, border, and glow follows. See setAccent() in ui/theme.js.
+ */
+
+:root {
+  /* Dynamic color seed. Rotating --h re-themes the entire app. */
+  --h: 262;
+  --s: 83%;
+
+  --accent: hsl(var(--h) var(--s) 62%);
+  --accent-hi: hsl(var(--h) var(--s) 70%);
+  --accent-lo: hsl(var(--h) var(--s) 46%);
+  --accent-ink: #fff;
+  --accent-wash: hsl(var(--h) var(--s) 62% / 0.12);
+  --accent-line: hsl(var(--h) var(--s) 62% / 0.28);
+
+  /* Type scale — fluid, clamped so it stays sane on phone and desktop. */
+  --step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.85rem);
+  --step-0: clamp(0.94rem, 0.9rem + 0.2vw, 1rem);
+  --step-1: clamp(1.1rem, 1.02rem + 0.4vw, 1.25rem);
+  --step-2: clamp(1.35rem, 1.2rem + 0.75vw, 1.65rem);
+  --step-3: clamp(1.7rem, 1.4rem + 1.5vw, 2.4rem);
+  --step-4: clamp(2.1rem, 1.6rem + 2.6vw, 3.4rem);
+
+  --font-ui: "Inter var", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, monospace;
+  /* OpenDyslexic is optional and loaded from local install only; the stack degrades
+     to Comic Sans / Verdana, which share the tall x-height that helps most readers. */
+  --font-dys: "OpenDyslexic", "Comic Sans MS", "Trebuchet MS", Verdana, sans-serif;
+
+  /* Radii — large and soft is the core of the visual identity. */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 26px;
+  --r-xl: 34px;
+  --r-full: 999px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  /* Motion. Every duration multiplies by --motion, which reduced-motion zeroes. */
+  --motion: 1;
+  --t-fast: calc(120ms * var(--motion));
+  --t-mid: calc(240ms * var(--motion));
+  --t-slow: calc(420ms * var(--motion));
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --z-sheet: 60;
+  --z-player: 50;
+  --z-nav: 40;
+  --z-toast: 90;
+
+  --tap: 44px; /* minimum touch target, WCAG 2.2 target size */
+}
+
+/* ---------- Light ---------- */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: hsl(var(--h) 40% 98%);
+  --bg-tint: hsl(var(--h) 60% 96%);
+  --surface: hsl(0 0% 100% / 0.72);
+  --surface-solid: #fff;
+  --surface-2: hsl(var(--h) 30% 97%);
+  --glass-blur: 22px;
+  --glass-edge: hsl(0 0% 100% / 0.65);
+
+  --ink: hsl(var(--h) 22% 12%);
+  --ink-2: hsl(var(--h) 12% 34%);
+  --ink-3: hsl(var(--h) 10% 50%);
+  --line: hsl(var(--h) 20% 88%);
+  --line-2: hsl(var(--h) 20% 82%);
+
+  --ok: hsl(152 60% 38%);
+  --warn: hsl(38 92% 44%);
+  --danger: hsl(354 70% 50%);
+
+  --shadow-1: 0 1px 2px hsl(var(--h) 30% 20% / 0.06), 0 4px 12px hsl(var(--h) 30% 20% / 0.05);
+  --shadow-2: 0 2px 6px hsl(var(--h) 30% 20% / 0.07), 0 14px 40px hsl(var(--h) 30% 20% / 0.09);
+  --shadow-3: 0 8px 24px hsl(var(--h) 30% 20% / 0.1), 0 30px 70px hsl(var(--h) 30% 20% / 0.14);
+}
+
+/* ---------- Dark ---------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: hsl(var(--h) 24% 8%);
+  --bg-tint: hsl(var(--h) 30% 11%);
+  --surface: hsl(var(--h) 22% 16% / 0.62);
+  --surface-solid: hsl(var(--h) 22% 14%);
+  --surface-2: hsl(var(--h) 20% 13%);
+  --glass-blur: 26px;
+  --glass-edge: hsl(var(--h) 40% 80% / 0.1);
+
+  --ink: hsl(var(--h) 18% 96%);
+  --ink-2: hsl(var(--h) 12% 74%);
+  --ink-3: hsl(var(--h) 10% 56%);
+  --line: hsl(var(--h) 18% 24%);
+  --line-2: hsl(var(--h) 18% 32%);
+
+  --accent: hsl(var(--h) 78% 70%);
+  --accent-hi: hsl(var(--h) 80% 78%);
+  --accent-lo: hsl(var(--h) 70% 56%);
+  --accent-ink: hsl(var(--h) 40% 10%);
+  --accent-wash: hsl(var(--h) 78% 70% / 0.16);
+  --accent-line: hsl(var(--h) 78% 70% / 0.32);
+
+  --ok: hsl(152 55% 55%);
+  --warn: hsl(38 90% 62%);
+  --danger: hsl(354 80% 68%);
+
+  --shadow-1: 0 1px 2px hsl(0 0% 0% / 0.4);
+  --shadow-2: 0 4px 12px hsl(0 0% 0% / 0.45), 0 18px 44px hsl(0 0% 0% / 0.35);
+  --shadow-3: 0 10px 30px hsl(0 0% 0% / 0.5), 0 34px 80px hsl(0 0% 0% / 0.45);
+}
+
+/* ---------- AMOLED ----------
+   True black background so OLED pixels switch off. Surfaces stay near-black rather
+   than translucent grey, and blur drops (it would only smear black over black). */
+:root[data-theme="amoled"] {
+  color-scheme: dark;
+
+  --bg: #000;
+  --bg-tint: #000;
+  --surface: hsl(0 0% 7% / 0.86);
+  --surface-solid: #0a0a0a;
+  --surface-2: #0d0d0d;
+  --glass-blur: 10px;
+  --glass-edge: hsl(0 0% 100% / 0.08);
+
+  --ink: hsl(0 0% 97%);
+  --ink-2: hsl(0 0% 72%);
+  --ink-3: hsl(0 0% 52%);
+  --line: hsl(0 0% 16%);
+  --line-2: hsl(0 0% 24%);
+
+  --accent: hsl(var(--h) 85% 72%);
+  --accent-hi: hsl(var(--h) 90% 80%);
+  --accent-lo: hsl(var(--h) 75% 58%);
+  --accent-ink: #000;
+  --accent-wash: hsl(var(--h) 85% 72% / 0.14);
+  --accent-line: hsl(var(--h) 85% 72% / 0.3);
+
+  --ok: hsl(152 60% 58%);
+  --warn: hsl(38 92% 64%);
+  --danger: hsl(354 85% 70%);
+
+  --shadow-1: 0 0 0 1px hsl(0 0% 100% / 0.05);
+  --shadow-2: 0 0 0 1px hsl(0 0% 100% / 0.06), 0 12px 40px hsl(0 0% 0% / 0.9);
+  --shadow-3: 0 0 0 1px hsl(0 0% 100% / 0.08), 0 30px 80px hsl(0 0% 0% / 1);
+}
+
+/* ---------- Reading surfaces ----------
+   Scoped to the reader canvas so the surrounding chrome keeps the app theme. */
+[data-paper="light"] { --page: #fff; --page-ink: #16161a; --page-ink-2: #55555f; --page-line: #e6e6ec; }
+[data-paper="sepia"] { --page: #f6ecd9; --page-ink: #4a3b28; --page-ink-2: #7b6849; --page-line: #e2d3b8; }
+[data-paper="paper"] { --page: #f2f1ec; --page-ink: #2b2b2b; --page-ink-2: #5f5f5f; --page-line: #dedcd4; }
+[data-paper="dark"] { --page: #16171c; --page-ink: #e6e6ee; --page-ink-2: #9b9bab; --page-line: #2a2b33; }
+[data-paper="amoled"] { --page: #000; --page-ink: #ededf2; --page-ink-2: #8e8e99; --page-line: #1c1c1c; }
+
+/* ---------- Accessibility overrides ---------- */
+:root[data-contrast="high"] {
+  --ink-2: var(--ink);
+  --ink-3: var(--ink);
+  --line: var(--ink-3);
+  --line-2: var(--ink);
+  --surface: var(--surface-solid);
+  --glass-blur: 0px;
+}
+
+:root[data-motion="reduced"] {
+  --motion: 0.001;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion: 0.001; }
+}
